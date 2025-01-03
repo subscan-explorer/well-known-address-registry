@@ -43,13 +43,13 @@ where
 	C: Spec,
 {
 	spec_name: &'static str,
-	address: Vec<Address<C::AccountId, C::Ss58Ver>>,
+	address: Vec<Addr<C::AccountId, C::Ss58Ver>>,
 }
 impl<C> Registry<C>
 where
 	C: Spec,
 {
-	pub fn new(address: Vec<Address<C::AccountId, C::Ss58Ver>>) -> Self {
+	pub fn new(address: Vec<Addr<C::AccountId, C::Ss58Ver>>) -> Self {
 		let spec_name = C::NAME;
 
 		Self { spec_name, address }

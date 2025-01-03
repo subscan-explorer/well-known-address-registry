@@ -16,5 +16,5 @@ pub struct Registry<C>
 where
 	C: Spec,
 {
-	pub treasury: Address<C::AccountId, C::Ss58Ver>,
+	pub treasury: Addr<C::AccountId, C::Ss58Ver>,
 }
