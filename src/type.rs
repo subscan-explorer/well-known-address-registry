@@ -30,6 +30,7 @@ where
 	id: [u8; 8],
 	#[serde(serialize_with = "array_bytes::ser_hexify_prefixed")]
 	pubkey: Ary,
+	#[serde(skip_serializing_if = "Option::is_none")]
 	ss58: Option<String>,
 	#[serde(skip)]
 	_phantom: PhantomData<Ss58Ver>,

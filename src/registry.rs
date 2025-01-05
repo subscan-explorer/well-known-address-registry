@@ -1,5 +1,17 @@
+pub mod acala;
+pub use acala::Acala;
+
+pub mod astar;
+pub use astar::Astar;
+
 pub mod collectives;
 pub use collectives::Collectives;
+
+pub mod darwinia;
+pub use darwinia::Darwinia;
+
+pub mod moonbeam;
+pub use moonbeam::Moonbeam;
 
 pub mod polkadot;
 pub use polkadot::Polkadot;
@@ -23,18 +35,31 @@ pub trait Spec {
 #[derive(Debug, Serialize)]
 #[serde(untagged)]
 pub enum UnifyRegistry {
-	Polkadot(Registry<Polkadot>),
+	Acala(Registry<Acala>),
+	Astar(Registry<Astar>),
 	Collectives(Registry<Collectives>),
+	Darwinia(Registry<Darwinia>),
+	Moonbeam(Registry<Moonbeam>),
+	Polkadot(Registry<Polkadot>),
 }
-impl From<Registry<Polkadot>> for UnifyRegistry {
-	fn from(registry: Registry<Polkadot>) -> Self {
-		Self::Polkadot(registry)
-	}
+macro_rules! impl_registry {
+	($($spec:ident,)+) => {
+		$(
+			impl From<Registry<$spec>> for UnifyRegistry {
+				fn from(registry: Registry<$spec>) -> Self {
+					Self::$spec(registry)
+				}
+			}
+		)+
+	};
 }
-impl From<Registry<Collectives>> for UnifyRegistry {
-	fn from(registry: Registry<Collectives>) -> Self {
-		Self::Collectives(registry)
-	}
+impl_registry! {
+	Acala,
+	Astar,
+	Collectives,
+	Darwinia,
+	Moonbeam,
+	Polkadot,
 }
 
 #[derive(Debug, Serialize)]
